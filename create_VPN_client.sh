@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/sh
 
 # Source credentials file
 . .credentials
@@ -10,7 +10,6 @@ if [ -z "$1" -o -z "$2"]; then
 else
   CLIENT=$1
   CLIENT_MAIL=$2
-  SERVER_NAME
 
   # Setup dirs
   cd /etc/easy-rsa
@@ -32,6 +31,7 @@ else
 fi
 
 # Compress and encrypt user dir
+echo "Archiving and encrypting"
 zip -e ${CLIENT}.zip *
 
 # Check if invocation included an email adress
