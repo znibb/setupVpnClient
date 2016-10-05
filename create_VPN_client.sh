@@ -10,6 +10,7 @@ if [ -z "$1" -o -z "$2"]; then
 else
   CLIENT=$1
   CLIENT_MAIL=$2
+  CONFIG_FILE=${CLIENT}.at.${SERVER_NAME}.conf
 
   # Setup dirs
   cd /etc/easy-rsa
@@ -19,9 +20,10 @@ else
   build-key-pkcs12 ${CLIENT}.at.${SERVER_NAME}
   mv keys/${CLIENT}.at.${SERVER_NAME}.* keys/${CLIENT}
 
-  # Change to target folder and, skeleton conf file and append user specific setting
+  # Change to target folder, copy skeleton conf file and append user specific setting
   cd /etc/easy-rsa/keys/${CLIENT}
-  cp /etc/openvpn/${SERVER_NAME}_client.conf ${CLIENT}.at.${SERVER_NAME}.conf
+  cp /etc/openvpn/skeleton_client.conf ${CONFIG_FILE}
+  echo "remote ${SERVER_ADDRESS} ${SERVER_PORT}" >> ${CONFIG_FILE}
   echo "pkcs12 ${CLIENT}.at.${SERVER_NAME}.p12" >> ${CLIENT}.at.${SERVER_NAME}.conf
 
   # Append TLS key to user conf
