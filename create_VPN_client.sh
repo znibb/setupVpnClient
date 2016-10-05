@@ -27,12 +27,12 @@ else
   cd /etc/easy-rsa/keys/${CLIENT}
   mv /etc/easy-rsa/skeleton_client.conf ${CONFIG_FILE}
   echo "remote ${SERVER_ADDRESS} ${SERVER_PORT}" >> ${CONFIG_FILE}
-  echo "pkcs12 ${CLIENT}.at.${SERVER_NAME}.p12" >> ${CLIENT}.at.${SERVER_NAME}.conf
+  echo "pkcs12 ${CLIENT}.at.${SERVER_NAME}.p12" >> ${CONFIG_FILE}
 
   # Append TLS key to user conf
-  echo "\n<tls-auth>" >> ${CLIENT}.at.${SERVER_NAME}.conf
-  cat ../ta.key >> ${CLIENT}.at.${SERVER_NAME}.conf
-  echo "</tls-auth>" >> ${CLIENT}.at.${SERVER_NAME}.conf
+  echo "\n<tls-auth>" >> ${CONFIG_FILE}
+  cat ../ta.key       >> ${CONFIG_FILE}
+  echo "</tls-auth>"  >> ${CONFIG_FILE}
 fi
 
 # Compress and encrypt user dir
